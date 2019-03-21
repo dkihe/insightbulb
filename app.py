@@ -8,12 +8,18 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 @app.route('/', methods=['GET'])
 def index():
-    # Get the region data on landing
+    bulbs = discover_bulbs()
+    devices = []
+    for bulb in bulbs:
+        devices.append(bulb['capabilities'].get('id'))
+
     us_regions = []
     local_stations = get_stations_dict()
     for region in get_regions():
-        us_regions.append(region.text)
-    return render_template('index.html', us_regions=us_regions, local_stations=local_stations)
+        # We don't need tide data for the great lakes
+        if 'Great Lakes' not in region.text:
+            us_regions.append(region.text)
+    return render_template('index.html', us_regions=us_regions, local_stations=local_stations, devices=devices)
 
 
 @app.route('/get-stations')

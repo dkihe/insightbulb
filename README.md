@@ -1,5 +1,7 @@
 # Insightbulb
 
+![March-20-2019](/img/03-20-2019.png)
+
 A simple webapp to control Yeelight bulbs!  Powered with python!
 
 **Fork us!**
@@ -24,13 +26,8 @@ After running ```$ deactivate``` will bring you back to reality.
 For a more detailed description, see the easy to read Flask [docs](http://flask.pocoo.org/docs/1.0/).
 
 Once your environment is set up run the following:
-* ```$ pip install flask```
-* ```$ pip install yeelight```
-* ```$ pip install bs4```
-* ```$ pip install httplib2```
-* ```$ export FLASK_APP=app.py```
+* ```$pip install -r requirements.txt```
 
-(TODO: automate these dependencies)
 
 You'll also want to be making changes in the development environment:
 
