@@ -44,25 +44,27 @@
         <div class="row">
             <div class="col">
                 <div class="dropdown">
-<<<<<<< HEAD
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tidal Regions
-                    </button>
-                    <ul class="dropdown-menu tidal region" role="menu">
-=======
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tidal Regions</button>
-                    <ul class="dropdown-menu" role="menu">
->>>>>>> 5a447fecf98bc19784c91caf9f69c1519e02f7a3
+                    <div class="current-state">{{ us_region_element }}</div>
+                    <ul class="dropdown-menu scrollable-menu" role="menu">
                         {% for us_region_element in us_regions %}
-                            <li class="dropdown-submenu"><a tabindex="-1" href="#" class="dropdown-item station" data-name="{{ us_region_element }}">{{ us_region_element }}</a>
-                                <ul class="dropdown-menu scrollable-menu">
-                                    {% for key, value in local_stations.items() if key in us_region_element %}
-                                        {% for station in value %}
-                                            <li><a tabindex="-1" href="#" class="dropdown-item" data-name="{{ station }}">{{ station }}</a>
-                                        {% endfor %}
-                                    {% endfor %}
-                                </ul>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#" class="dropdown-item station" data-name="{{ us_region_element }}">{{ us_region_element }}</a>
                             </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <div class="stuff"></div>
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Location</button>
+                    <ul class="dropdown-menu">
+                        <li>{{ us_region_element }}</li>
+                        {% for key, value in local_stations.items() if key in us_region_element %}
+                            {% for station in value %}
+                                <li>
+                                    <a tabindex="-1" href="#" class="dropdown-item" data-name="{{ station }}">{{ station }}</a>
+                                </li>
+                            {% endfor %}
                         {% endfor %}
                     </ul>
                 </div>

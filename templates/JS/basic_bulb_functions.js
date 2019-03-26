@@ -31,20 +31,14 @@ $(function () {
     });
 });
 
+// Function that inserts the state that the user chooses into a div
 $(function () {
     $('a.dropdown-item').on('click', function (e) {
         var name = e.currentTarget;
-        console.log(name.getAttribute("data-name"));
-    });
-});
-
-$(function () {
-    $(document).ready(function () {
-        $('.dropdown-submenu a.station').on("click", function (e) {
-            $(this).next('ul').toggle();
-            e.stopPropagation();
-            e.preventDefault();
-        });
+        var dataName = name.getAttribute("data-name")
+        console.log(dataName);
+        $('.current-state').html('');
+        $('.current-state').append(name.getAttribute("data-name"));
     });
 });
 
