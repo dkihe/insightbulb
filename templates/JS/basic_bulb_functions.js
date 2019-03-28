@@ -35,11 +35,24 @@ $(function () {
 $(function () {
     $('a.dropdown-item').on('click', function (e) {
         var name = e.currentTarget;
-        var dataName = name.getAttribute("data-name")
+        var dataName = name.getAttribute("data-name");
         console.log(dataName);
         $('.current-state').html('');
         $('.current-state').append(name.getAttribute("data-name"));
     });
+});
+
+$.ajax({
+    type: 'GET',
+    url: 'http://localhost:8080/cache/getSite?clientName=testclient',
+    dataType: 'json',
+    success: function(data) {
+        var rows = [];
+        $.each(data,function(id,value) {
+            rows.push('<tr><td>'+id+'</td><td>'+value.machine+'</td><td>'+value.state+'</td></tr>');
+        });
+        $('table').append(rows.join(''));
+    }
 });
 
 // A dummy template for how the tide data will be graphed

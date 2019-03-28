@@ -41,6 +41,7 @@
             </div>
         </div>
         <br/>
+        <!-- <div class="test" data-name="{{ local_stations }}">{{ local_stations }}</div> -->
         <div class="row">
             <div class="col">
                 <div class="dropdown">
@@ -57,15 +58,20 @@
                 <div class="dropdown">
                     <div class="stuff"></div>
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Location</button>
-                    <ul class="dropdown-menu">
-                        <li>{{ us_region_element }}</li>
+                    <ul class="local-stations dropdown-menu">
+                        {% for value in local_stations.Hawaii %}
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#" class="dropdown-item station" data-name="{{ value }}">{{ value }}</a>
+                            </li>
+                        {% endfor %}
+                        <!-- <li>{{ us_region_element }}</li>
                         {% for key, value in local_stations.items() if key in us_region_element %}
                             {% for station in value %}
                                 <li>
                                     <a tabindex="-1" href="#" class="dropdown-item" data-name="{{ station }}">{{ station }}</a>
                                 </li>
                             {% endfor %}
-                        {% endfor %}
+                        {% endfor %} -->
                     </ul>
                 </div>
             </div>
