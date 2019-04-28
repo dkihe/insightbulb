@@ -1,23 +1,41 @@
 import httplib2
 from bs4 import BeautifulSoup
+from selenium import webdriver
 
 http = httplib2.Http()
 main = 'https://tidesandcurrents.noaa.gov/stations.html'
 status, response = http.request(main)
 
+# def get_tide_data(value):
+#     times = list()
+#     tide_http = httplib2.Http()
+#     tide_data = value
+#     tide_status, tide_response = tide_http.request(tide_data)
+#     soup = BeautifulSoup(tide_response, 'html.parser')
+#     table = soup.find("table", attrs={'class': 'table-condensed'}).findAll("tr", attrs={'class': None})
+#     for tag in table:
+#         times.append(tag.text)  
 
-def get_tide_data(value):
+#     return times
+
+def test(value):
     times = list()
-    tide_http = httplib2.Http()
+    # tide_http = httplib2.Http()
     tide_data = value
-    tide_status, tide_response = tide_http.request(tide_data)
-    soup = BeautifulSoup(tide_response, 'html.parser')
-    table = soup.find("table", attrs={'class': 'table-condensed'}).findAll("tr", attrs={'class': None})
+    try:
+        driver = webdriver.Chrome('./venv/bin/chromedriver')
+        driver.get(value)           
+        html = driver.page_source
+    # tide_status, tide_response = tide_http.request(tide_data)
+    except Exception as e:
+        raise e
+    finally:
+        driver.close()
+    soup = BeautifulSoup(html, 'html.parser')
+    table = soup.find(id='data_listing')
     for tag in table:
         times.append(tag.text)  
-
     return times
-
 
 def get_regions():
     soup = BeautifulSoup(response, 'html.parser')
