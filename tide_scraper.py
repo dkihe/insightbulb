@@ -1,40 +1,48 @@
 import httplib2
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import time
 
 http = httplib2.Http()
 main = 'https://tidesandcurrents.noaa.gov/stations.html'
 status, response = http.request(main)
 
-# def get_tide_data(value):
-#     times = list()
-#     tide_http = httplib2.Http()
-#     tide_data = value
-#     tide_status, tide_response = tide_http.request(tide_data)
-#     soup = BeautifulSoup(tide_response, 'html.parser')
-#     table = soup.find("table", attrs={'class': 'table-condensed'}).findAll("tr", attrs={'class': None})
-#     for tag in table:
-#         times.append(tag.text)  
-
-#     return times
-
-def test(value):
+def get_tide_data(value):
     times = list()
-    # tide_http = httplib2.Http()
+
+    driver = webdriver.Chrome('./venv/bin/chromedriver')
+    driver.get(value)
+    time.sleep(10)
+    html = driver.page_source
+
+    tide_http = httplib2.Http()
     tide_data = value
-    try:
-        driver = webdriver.Chrome('./venv/bin/chromedriver')
-        driver.get(value)           
-        html = driver.page_source
-    # tide_status, tide_response = tide_http.request(tide_data)
-    except Exception as e:
-        raise e
-    finally:
-        driver.close()
+    tide_status, tide_response = tide_http.request(tide_data)
     soup = BeautifulSoup(html, 'html.parser')
+    # table = soup.find("table", attrs={'class': 'table-condensed'}).findAll("tr", attrs={'class': None})
     table = soup.find(id='data_listing')
-    for tag in table:
-        times.append(tag.text)  
+    driver.quit()
+    # for tag in table:
+    #     times.append(tag.text)  
+
+    return table
+
+# def test(value):
+#     times = list()
+#     # tide_http = httplib2.Http()
+#     tide_data = value
+#     driver = webdriver.Chrome('./venv/bin/chromedriver')
+#     driver.get(value)           
+#     html = driver.page_source
+#     soup = BeautifulSoup(html, 'html.parser')
+#     # tide_status, tide_response = tide_http.request(tide_data)
+#     table = soup.find(id='data_listing')
+
+#     # for tag in table:
+#     #     times.append(tag.text)
+
+    driver.close()
+    driver.quit()  
     return times
 
 def get_regions():

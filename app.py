@@ -57,17 +57,16 @@ def index():
     if request.method == 'POST':
         station_data = request.json['station_data']
         station_url = 'https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=%s' % station_data[0]
-        # times = get_tide_data(station_url)
-        times = test(station_url)
+        times = get_tide_data(station_url)
         current_times.clear()
         extrema = tidal_flow(times)
         station_name.clear()
         station_name.append(station_data[1])
         # For debugging
         print("STATION_DATA:", station_data)
-        print(test(station_url))
         for extreme in extrema:
             current_times.append(extreme)
+        print(times)
 
     return render_template('index.html', us_regions=us_regions,
                            local_stations=local_stations, devices=devices,
